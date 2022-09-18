@@ -79,7 +79,7 @@ def fill(row1, column1):
 def pre_index(row1, column1):
     if row1 == 0 and column1 == 0:
         print("出错啦")
-        return -1,-1
+        return -1, -1
     if column1 >= 1:  # 若列号大于等于一 则上一轮是本行的上一列
         column1 -= 1
     else:  # 若列号小于一 则上一轮是上一行的最后一列
@@ -95,7 +95,7 @@ def pre_index(row1, column1):
 
 def next_index(row1, column1):  # 用来探测下一轮的索引
     if row1 == 8 and column1 == 8:
-        return -1,-1
+        return -1, -1
     if column1 < 8:  # 若列号小于20 则下一轮是本行的下一列
         column1 += 1
     else:  # 若列号等于20 则下一轮是下一行的第一列
@@ -130,7 +130,7 @@ if __name__ == '__main__':
             #     print("结束！")
             #     break
             row, column = next_index(row, column)
-            if(row == -1 and column == -1):
+            if (row == -1 and column == -1):
                 print("结束！")
                 break
 

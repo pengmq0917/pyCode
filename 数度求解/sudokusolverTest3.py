@@ -57,9 +57,9 @@ map_right_bottom = [
 ]
 
 question_maps = [
+    map_middle,
     map_left_top,
     map_right_top,
-    map_middle,
     map_left_bottom,
     map_right_bottom
 ]
@@ -155,27 +155,26 @@ def next_index(row1, column1, map_index1):  # 用来探测下一轮的索引
 
 
 def fill_question_map():
-    def fill_question_map():
-        for row1 in range(0, 3):
-            for column1 in range(0, 3):
-                question_maps_mirror[1][row1 + 6][column1 + 6] = map_middle[row1][column1]
-                question_maps[1][row1 + 6][column1 + 6] = map_middle[row1][column1]
-            for column1 in range(6, 9):
-                question_maps[2][row1 + 6][column1 - 6] = map_middle[row1][column1]
-                question_maps_mirror[2][row1 + 6][column1 - 6] = map_middle[row1][column1]
-        # print_map(map_right_top)
-        for row1 in range(6, 9):
-            for column1 in range(0, 3):
-                question_maps[3][row1 - 6][column1 + 6] = map_middle[row1][column1]
-                question_maps_mirror[3][row1 - 6][column1 + 6] = map_middle[row1][column1]
-            for column1 in range(6, 9):
-                question_maps[4][row1 - 6][column1 - 6] = map_middle[row1][column1]
-                question_maps_mirror[4][row1 - 6][column1 - 6] = map_middle[row1][column1]
+    for row1 in range(0, 3):
+        for column1 in range(0, 3):
+            question_maps_mirror[1][row1 + 6][column1 + 6] = map_middle[row1][column1]
+            question_maps[1][row1 + 6][column1 + 6] = map_middle[row1][column1]
+        for column1 in range(6, 9):
+            question_maps[2][row1 + 6][column1 - 6] = map_middle[row1][column1]
+            question_maps_mirror[2][row1 + 6][column1 - 6] = map_middle[row1][column1]
+    # print_map(map_right_top)
+    for row1 in range(6, 9):
+        for column1 in range(0, 3):
+            question_maps[3][row1 - 6][column1 + 6] = map_middle[row1][column1]
+            question_maps_mirror[3][row1 - 6][column1 + 6] = map_middle[row1][column1]
+        for column1 in range(6, 9):
+            question_maps[4][row1 - 6][column1 - 6] = map_middle[row1][column1]
+            question_maps_mirror[4][row1 - 6][column1 - 6] = map_middle[row1][column1]
 
 
 def resolve_edge():
     for i in range(1, 5):
-        print(f"循环到{i}")
+        # print(f"循环到{i}")
         row2 = 0
         column2 = 0
         map_index = i
@@ -205,12 +204,12 @@ def resolve_edge():
                     # break
         # if len(result_map) <= 0:  # 若单个9*9数独都无解  那么整体无解
         #     print("本题无解")
-        # break
+            # break
         # else:
         #     fill_question_map(i)
-        for i in range(len(result_map)):
-            print(f"2答案{i}")
-            print_map(result_map[i])
+        # for i in range(len(result_map)):
+            # print(f"2答案{i}")
+            # print_map(result_map[i])
             # question_maps[map_index] = result_map[i]
 
 
@@ -247,59 +246,18 @@ def resolve_middle():
                 column = column_temp
 
 
-def print_result():
-    for row1 in range(0, 21):
-        for column1 in range(0, 21):
-            if row1 < 6:
-                if column1 < 9:
-                    print(f"{map_left_top[row1][column1]}\t", end="")
-                elif 8 < column1 < 12:
-                    print(f" \t", end="")
-                else:
-                    print(f"{map_right_top[row1][column1 - 12]}\t", end="")
-            if 5 < row1 < 9:
-                if column1 < 9:
-                    print(f"{map_left_top[row1][column1]}\t", end="")
-                elif 8 < column1 < 12:
-                    print(f"{map_middle[row1-6][column1-6]}\t", end="")
-                else:
-                    print(f"{map_right_top[row1][column1 - 12]}\t", end="")
-            if 8 < row1 < 12:
-                if column1 < 6:
-                    print(f" \t", end="")
-                elif 5 < column1 < 15:
-                    print(f"{map_middle[row1-6][column1-6]}\t", end="")
-                else:
-                    print(f" \t", end="")
-            if 11 < row1 < 15:
-                if column1 < 9:
-                    print(f"{map_left_bottom[row1 - 12][column1]}\t", end="")
-                elif 8 < column1 < 12:
-                    print(f"{map_middle[row1 - 6][column1 - 6]}\t", end="")
-                else:
-                    print(f"{map_right_bottom[row1-12][column1-12]}\t", end="")
-            if row1 > 14:
-                if column1 < 9:
-                    print(f"{map_left_bottom[row1 - 12][column1]}\t", end="")
-                elif 8 < column1 < 12:
-                    print(f" \t", end="")
-                else:
-                    print(f"{map_right_bottom[row1 - 12][column1 - 12]}\t", end="")
-        print("")
-
 if __name__ == '__main__':
     resolve_middle()
-    print_result()
     # resolve_edge()
-    # print_map(question_maps[0])
-    # print()
-    # print_map(question_maps[1])
-    # print()
-    # print_map(question_maps[2])
-    # print()
-    # print_map(question_maps[3])
-    # print()
-    # print_map(question_maps[4])
+    print_map(question_maps[0])
+    print()
+    print_map(question_maps[1])
+    print()
+    print_map(question_maps[2])
+    print()
+    print_map(question_maps[3])
+    print()
+    print_map(question_maps[4])
     # resolve_edge()
     # results = resolve9_9(0) # 先解出中间所有可能的情况
     # for result in results:
@@ -338,5 +296,5 @@ if __name__ == '__main__':
     #     for i in range(len(result_map)):
     #         print(f"答案{i}")
     #         print_map(result_map[i])
-    # result_map_map.append(result_map)  # 本轮9*9数独的解列表存储进各个9*9数独的解列表的列表
+            # result_map_map.append(result_map)  # 本轮9*9数独的解列表存储进各个9*9数独的解列表的列表
     # print(map_mirror)

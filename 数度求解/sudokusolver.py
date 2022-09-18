@@ -71,15 +71,15 @@ def print_map():
 
 
 def fill(row1, column1):
-    if map[row1][column1] >= 10:  # 若值超过了9，则说明上一步有错
+    if map[row1][column1] > 9:  # 若值超过了9，则说明上一步有错
         map[row1][column1] = 0  # 上一步有错,则初始化本单元格的值
-        # if row == 0 and column == 0:
-        #     return
-        # row, column = pre_index(row, column)
-        # fill(row, column)
         return 0
-    is_assign = False  # 用来记录本轮是否被赋值
-    for num in range(map[row1][column1] + 1, 10):  # 尝试下一个值能否满足
+    next_num = map[row1][column1] + 1  # 防止循环出现range(10，10)
+    if next_num > 9:
+        map[row1][column1] = 0
+        return 0
+    is_assign = False  # 用来记录本格是否被赋值
+    for num in range(next_num, 10):  # 尝试下一个值能否满足
         is_repeat = False
         min_column, max_column = column_index_range(row1, column1)
         for column_index in range(min_column, max_column + 1):  # 检查同一行是否重复
@@ -106,24 +106,13 @@ def fill(row1, column1):
             map[row1][column1] = num  # 如果都不重复，则赋值到此单元格
             is_assign = True
             break
-    if not is_assign:  # 如果本轮没被赋值，则说明上一轮赋值有错
-        # if row == 0 and column == 0:
-        #     return  # 求解失败
-        # row, column = pre_index(row, column)
-        # map[row][column] += 1  # 上一轮赋值有错,则尝试下一个值
+    if not is_assign:  # 如果本格没被赋值，则说明上一轮赋值有错
         return 0
-        # fill(row, column)
-
-    if is_assign:  # 如果被赋值了，则可进入下一个单元格
-        # if row == 20 and column == 20:
-        #     return  # 求解成功
-        # row, column = next_index(row, column)
-        # fill(row, column)
+    else:
         return 1
 
 
 def row_index_range(row1, column1):  # 计算要对比的行
-    print(f"{row}+++++++{column}")
     if row1 < 6:
         return 0, 8
     if 5 < row1 < 9 and (column1 < 6 or column1 > 14):
@@ -167,8 +156,8 @@ def column_index_range(row1, column1):  # 计算要对比的列
 
 def pre_index(row1, column1):
     if row1 == 0 and column1 == 0:
-        return -1,-1
-    if column1 > 0:  # 若列号大于等于一 则上一轮是本行的上一列
+        return -1, -1
+    if column1 > 0:  # 若列号大于等于零 则上一轮是本行的上一列
         column1 -= 1
     else:  # 若列号小于一 则上一轮是上一行的最后一列
         row1 -= 1
@@ -183,7 +172,7 @@ def pre_index(row1, column1):
 
 def next_index(row1, column1):  # 用来探测下一轮的索引
     if row1 == 20 and column1 == 20:
-        return -1,-1
+        return -1, -1
     if column1 < 20:  # 若列号小于20 则下一轮是本行的下一列
         column1 += 1
     else:  # 若列号等于20 则下一轮是下一行的第一列
@@ -195,26 +184,33 @@ def next_index(row1, column1):  # 用来探测下一轮的索引
     else:
         return row1, column1
 
-
+row_process = 0
 if __name__ == '__main__':
     row = 0
     column = 0
     while True:
+        # print(f"（{row}）------（{column}）")
+        if map_mirror[row][column] == 0:
+            result = fill(row, column)
+        else:
+            result = 1
+        # print(result)
         # print_map()
-        print(f"{row}------{column}")
-        result = fill(row, column)
-        print(result)
+        if row > row_process:
+            print(f"（{row}）------（{column}）")
+            print_map()
+            row_process = row
         if result == 0:
             map[row][column] = 0
             row, column = pre_index(row, column)
             if row == -1 and column == -1:
-                print("结束！")
+                print("失败结束！")
                 break
+            # map[row][column] += 1    # 在上一个单元格尝试下一个数值
         if result == 1:
             row, column = next_index(row, column)
-            if (row == -1 and column == -1):
-                print("结束！")
+            if row == -1 and column == -1:
+                print("成功结束！")
                 break
-
     print_map()
     print(map_mirror)
