@@ -235,9 +235,11 @@ def resolve_edge():
         # break
         # else:
         #     fill_question_map(i)
-        for i in range(len(result_map)):
-            print(f"2答案{i}")
-            print_map(result_map[i])
+    print_result()
+
+        # for i in range(len(result_map)):
+        #     print(f"2答案{i}")
+        #     print_map(result_map[i])
             # question_maps[map_index] = result_map[i]
 
 
@@ -260,15 +262,10 @@ def resolve_middle():
         if result == 1:
             row_temp, column_temp = next_index(row, column, map_index)
             if row_temp == -1 and column_temp == -1:
-                # result = copy.deepcopy(question_maps[map_index])
-                # result_map.append(result)
                 print("答案之一  继续求解中！")
                 fill_question_map()
                 resolve_edge()
-                break
-                # print("adasdasd")
-                # print_map(question_maps[])
-                # print_map(question_maps[1])
+                # break
             else:
                 row = row_temp
                 column = column_temp
@@ -316,54 +313,3 @@ def print_result():
 
 if __name__ == '__main__':
     resolve_middle()
-    print_result()
-    # resolve_edge()
-    # print_map(question_maps[0])
-    # print()
-    # print_map(question_maps[1])
-    # print()
-    # print_map(question_maps[2])
-    # print()
-    # print_map(question_maps[3])
-    # print()
-    # print_map(question_maps[4])
-    # resolve_edge()
-    # results = resolve9_9(0) # 先解出中间所有可能的情况
-    # for result in results:
-    # result_map_map = []  # 各个9*9数独的解列表的列表
-    # for i in range(1,5):
-    #     row = 0
-    #     column = 0
-    #     map_index = i
-    #     result_map = []  # 同一9*9数独的多个解的列表
-    #     while True:
-    #         if question_maps_mirror[map_index][row][column] == 0:
-    #             result = fill(row, column, map_index)
-    #         else:
-    #             result = 1
-    #         if result == 0:
-    #             question_maps[map_index][row][column] = 0
-    #             row, column = pre_index(row, column, map_index)
-    #             if row == -1 and column == -1:
-    #                 print("结束！")
-    #                 break
-    #         if result == 1:
-    #             row_temp, column_temp = next_index(row, column, map_index)
-    #             if row_temp == -1 and column_temp == -1:
-    #                 result = copy.deepcopy(question_maps[map_index])
-    #                 result_map.append(result)
-    #                 print("答案之一  继续求解中！")
-    #             else:
-    #                 row = row_temp
-    #                 column = column_temp
-    #                 # break
-    #     if len(result_map) <= 0:  # 若单个9*9数独都无解  那么整体无解
-    #         print("本题无解")
-    #         break
-    #     # else:
-    #     #     fill_question_map(i)
-    #     for i in range(len(result_map)):
-    #         print(f"答案{i}")
-    #         print_map(result_map[i])
-    # result_map_map.append(result_map)  # 本轮9*9数独的解列表存储进各个9*9数独的解列表的列表
-    # print(map_mirror)
