@@ -116,7 +116,7 @@ def next_index(row1, column1, map_index1):
         return row1, column1
 
 
-def print_result(middle, left_top, right_top, left_bottom, right_bottom):
+def print_result(middle, left_top, right_top, left_bottom, right_bottom,count):
     """
     打印答案
     :param middle: 中间部分数独
@@ -126,6 +126,7 @@ def print_result(middle, left_top, right_top, left_bottom, right_bottom):
     :param right_bottom: 右下部分数独
     :return:
     """
+    print(f"第{count}个解为")
     for row1 in range(0, 21):
         for column1 in range(0, 21):
             if row1 < 6:
@@ -222,7 +223,7 @@ def resolve_edge():
     """
     answer_list_list = [[], [], [], []]  # 各个部分的解列表  分别为左上、右上、左下、右下
     for i in range(1, 5):
-        print(f"循环到{i}")
+        # print(f"循环到{i}")
         row2 = 0
         column2 = 0
         map_index = i
@@ -236,7 +237,7 @@ def resolve_edge():
                 question_maps[map_index][row2][column2] = 0
                 row2, column2 = pre_index(row2, column2, map_index)
                 if row2 == -1 and column2 == -1:
-                    print("结束---！")
+                    # print("结束---！")
                     break
             if result == 1:
                 row_temp, column_temp = next_index(row2, column2, map_index)
@@ -251,16 +252,19 @@ def resolve_edge():
             print("本题无解")
     # print(answer_list_list)
     # 遍历打印出所有解
+    count = 0
     for i in range(0, len(answer_list_list[0])):
         for j in range(0, len(answer_list_list[1])):
             for k in range(0, len(answer_list_list[2])):
                 for l in range(0, len(answer_list_list[3])):
+                    count += 1
                     print_result(
                         map_middle,
                         answer_list_list[0][i],
                         answer_list_list[1][j],
                         answer_list_list[2][k],
-                        answer_list_list[3][l]
+                        answer_list_list[3][l],
+                        count
                     )
     # print_result()
 
@@ -304,7 +308,7 @@ def resolve():
             question_maps[map_index][row][column] = 0
             row, column = pre_index(row, column, map_index)
             if row == -1 and column == -1:
-                print("结束！")
+                # print("结束！")
                 break
         if result == 1:
             row_temp, column_temp = next_index(row, column, map_index)
@@ -385,6 +389,11 @@ if __name__ == '__main__':
     map_left_bottom = []  # 用于存储题目左下部
     map_right_bottom = []  # 用于存储题目右下部
 
+    print("求解第一题...")
+    data_initial(question1)  # 初始化各工具数组
+    # 求解
+    resolve()
+    print("求解第二题...")
     data_initial(question2)  # 初始化各工具数组
     # 求解
     resolve()
